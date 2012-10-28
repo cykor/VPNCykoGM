@@ -125,47 +125,25 @@ for ip in iplist:
 ipaddrlist.sort()
 msubnet.sort()
 
-print "[INFO] rename old gfwList and write new"
-# rename
-upfile = open('gfwList','wa')
-uplines = open('gfwList.bak').readlines()
-
-# count the current route lines
-for l in range(len(uplines)):
-	if uplines[l].find('all others') != -1:
-		oldcnt_s = l
-	if uplines[l].find('end batch route') != -1:
-		oldcnt_e = l
-oldcnt = oldcnt_e - oldcnt_s - 1
-
-# for the vpnup.sh, write everything just as before 'all others'
-_anchor=0
-for l in uplines:
-	if _anchor==0:	upfile.write(l)
-	if l.find('all others') != -1:
-		break
-
-print "[INFO] generating the routes"
+print "[INFO] generating vpnup.sh ..."
+upfile = open('vpnup.sh','wa')
+# write head of vpnup.sh
+upfile.write('#!/bin/sh\nVPNGATEWAY=$(ifconfig $(ifconfig |grep tun | grep -Eo "tun([0-9.]+)" | cut -d: -f2) | grep -Eo "P-t-P:([0-9.]+)" | cut -d: -f2)\necho "adding routes to " $VPNGATEWAY\nip -force -batch - <<EOF\n')
+print "[INFO] generating routes ..."
+# write ip -batch routes
 cnt=0
 for i in ipaddrlist:
-	buff = "route add %s via $VPNGW metric 5" % i
+	buff = "route add %s via $VPNGATEWAY metric 5" % i
 	print buff
 	upfile.write(buff+'\n')
 	cnt+=1
 for m in msubnet:
-	buff = "route add %s/24 via $VPNGW metric 5" % m
+	buff = "route add %s/24 via $VPNGATEWAY metric 5" % m
 	print buff
 	upfile.write(buff+'\n')
 	cnt+=1
-
 print "[INFO] total %i routes generated(%i route(s) added)" % (cnt, cnt-oldcnt)
-
-# for the vpnup.sh, write everything just as after 'end batch route'
-_anchor=0
-for l in uplines:
-        if _anchor==1:  upfile.write(l)
-        if l.find('end batch route') != -1:
-                upfile.write(l)
-                _anchor=1
+# write 'EOF'
+upfile.write('EOF\n')
 upfile.close()
 print "[INFO] ALL DONE"

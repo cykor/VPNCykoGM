@@ -1,17 +1,16 @@
-本项目记录了我在自己家里的路由器上设置科学上网的全过程，供有类似需求的朋友参考。与之前用了两年的autoddvpn gracemode + OpenVPN方案相比，速度、稳定性都有所提升，而且避免了gracemode要经常添加维护被墙IP的麻烦（之前也做了个脚本自动检测添加路由和dnsmasq，但还是麻烦啊）。
+本项目是我对……的更新，使用VPNC连接Cisco IPSec服务器，采用了gracemode，并且加入被墙域名检查更新功能。
 
 本项目基于以下配置：
 
-* 路由器：[华硕RT-N16](http://www.asus.com/Networks/Wireless_Routers/RTN16/)，一款性价比较高的路由器，配置不错，特别是拥有32MB Flash，所以也是很多固件开发者的开发用机，可用的ROM非常多
-* 固件：[Tomato by Shibby](http://tomato.groov.pl/)，目前使用的版本是[K26USB-1.28.RT-N5x-MIPSR2-095-AIO](http://tomato.groov.pl/download/K26RT-N/build5x-095-EN/)
-* VPN：[IGVPN](https://www.igssh.com/)的[Pro Bundle](https://www.igssh.com/cart.php)，45GB/月3台并发，支持几乎现在流行的所有设备的所有接入方式，服务器多、速度快、文档详尽，一年360元算是物有所值了。我是用的是香港的Cisco IPSec服务器。
+* 路由器：[华硕RT-N66U](http://www.asus.com/Networks/Wireless_Routers/RTN66U/)，我认为是目前可以刷Tomato的最好的路由器
+* 固件：[Tomato by Shibby](http://tomato.groov.pl/)，目前使用的版本是[K26USB-1.28.RT-N5x-MIPSR2-102-AIO-64K.trx](http://tomato.groov.pl/download/K26RT-N/build5x-102-EN/Asus%20RT-N66u%2064k/)
+* VPN：@cosbeta的[VPN](http://killwall.com)，60GB/月3台并发，服务器多、速度快，三年只要240元
 * 宽带：我家用的是长城宽带…… 
 
 ##参考文档
 * [\[BLT\]FQX的Blog](http://www.zhongguotese.net)，本项目赤裸裸抄袭了[这篇文章](http://www.zhongguotese.net/2012/a-bridge-to-home-theater-2.html)和其中的代码
-* [IGVPN](https://www.igssh.com/)的[配置文档](https://www.igssh.com/knowledgebase.php)
 * [@Paveo的blog](http://w3.owind.com)，作为一个Falcop用户，虽然买不起VIG，但是向你致敬
-* [jimmyxu的chnroutes项目](https://github.com/jimmyxu/chnroutes)
+* [autoddvpn项目](https://code.google.com/p/autoddvpn/)
 
 
 ##本项目实现了
