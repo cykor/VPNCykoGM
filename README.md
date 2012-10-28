@@ -42,14 +42,18 @@
 	./entware_install.sh
 
 ##将本项目文件复制到路由器中
-	git
+出于节省空间的考虑，使用curl而不是git获取项目文件：
+
+	opkg install curl
 	mkdir /jffs/vpnc
 	cd /jffs/vpnc
-
+	curl -kL https://github.com/cykor/VPNCykoGM/tarball/master | tar zx
+	cd cykor-VPNCykoGM-xxxxxxx
+	mv * ..
+	
 ##安装python并更新vpnup.sh
 如果路由器的Flash空间不够安装python，可以跳过本步，在OS X或者Linux下用项目中的update.py生成。根据网络速度，生成/更新一次可能要半个小时的时间。
 
-	opkg install git
 	opkg install python
 	cd /jffs/vpnc
 	./update.py
@@ -61,7 +65,7 @@ update.py修改自[autoddvpn项目](https://code.google.com/p/autoddvpn/)的gfwL
 
 	opkg install vpnc
 	
-通过opkg安装vpnc是没有vpnc-script的。[本项目中的script.sh]()是基于[nslu2的ipkg源](http://ipkg.nslu2-linux.org/feeds/optware/ddwrt/cross/stable/)里面vpnc_0.5.3-1_mipsel.ipk的vpnc-script精简和修改的。请注意为script.sh加上可执行权限：
+通过opkg安装vpnc是没有vpnc-script的。[本项目中的script.sh](https://github.com/cykor/VPNCykoGM/blob/master/script.sh)是基于[nslu2的ipkg源](http://ipkg.nslu2-linux.org/feeds/optware/ddwrt/cross/stable/)里面vpnc_0.5.3-1_mipsel.ipk的vpnc-script精简和修改的。请注意为script.sh加上可执行权限：
 
 	chmod a+x script.sh
 
@@ -86,8 +90,19 @@ update.py修改自[autoddvpn项目](https://code.google.com/p/autoddvpn/)的gfwL
 告诉路由器在外网链接建立后运行vpnc。
 虽然并不必要，但是**现在重启路由器吧**！享受大功告成的感觉！
 
-##附：dnsmasq的设置
+##附1：dnsmasq的设置
 设置dnsmasq主要目的是提高访问性能，缺省使用OpenDNS解析（我的VPN下Google DNS ping值过高），对于国内大站通过114DNS解析，apple相关域名通过中华电信DNS解析。另外我发现我家api.twitter.com被污染的机率很大，不知道如何处理，所以在dnsmasq中明确指向OpenDNS解析，不过应该没有什么实际意义……还望有经验的朋友赐教。
 
 具体设置很简单：将本项目中的[dnsmasq](https://github.com/cykor/VPNCyko/blob/master/dnsmasq)中的内容粘贴到[路由器DHCP/DNS管理界面](http://192.168.1.1/advanced-dhcpdns.asp)里面Dnsmasq
 Custom configuration中，勾选Use internal DNS和Prevent DNS-rebind attacks，保存设置即可。
+
+##附2：vpnc-disconnect的问题
+使用opkg安装vpnc后，在我的Tomato Shibby中是无法正常使用vpnc-disconnect的。不过只要将vpnc-disconnect脚本中的
+
+	pid=/var/run/vpnc/pid
+
+修改为
+
+	pid=/var/run/vpnc.pid
+	
+即可。
