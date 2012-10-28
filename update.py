@@ -142,7 +142,7 @@ for m in msubnet:
 	print buff
 	upfile.write(buff+'\n')
 	cnt+=1
-print "[INFO] total %i routes generated(%i route(s) added)" % (cnt, cnt-oldcnt)
+print "[INFO] total %i routes generated" % cnt
 # write 'EOF'
 upfile.write('EOF\n')
 upfile.close()
