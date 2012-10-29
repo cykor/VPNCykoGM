@@ -91,7 +91,7 @@
 虽然并不必要，但是**现在重启路由器吧**！享受大功告成的感觉！
 
 ##附1：dnsmasq的设置
-设置dnsmasq主要目的是提高访问性能，目前缺省使用运营商配置的DNS解析（观察一段如果有问题就改用114DNS），apple相关域名通过中华电信DNS解析，只有Twiiter、Facebook等明确发现有DNS污染的网站才使用8.8.8.8解析。目前这样还没有发现什么问题，观察一段时间再决定是不是要应用[AntiDNSPoisoning](http://code.google.com/p/openwrt-gfw/wiki/AntiDNSPoisoning)。
+不太建议使用update.py生成的gfwdomains直接设置dnsmasq，这个文件包含了所有gfwList里面的域名，其中大多数域名并没有被污染，全部启用的话会降低DNS解析的效率。所以我缺省使用运营商配置的DNS解析（观察一段如果有问题就改用114DNS），apple相关域名通过中华电信DNS解析，只有Twiiter、Facebook等明确发现有DNS污染的网站才使用8.8.8.8解析。目前这样还没有发现什么问题，观察一段时间再决定是不是要应用[AntiDNSPoisoning](http://code.google.com/p/openwrt-gfw/wiki/AntiDNSPoisoning)。
 
 具体设置很简单：将本项目中的[dnsmasq](https://github.com/cykor/VPNCykoGM/blob/master/dnsmasq)中的内容粘贴到[路由器DHCP/DNS管理界面](http://192.168.1.1/advanced-dhcpdns.asp)里面Dnsmasq Custom configuration中，勾选Use internal DNS和Prevent DNS-rebind attacks，保存设置即可。
 
