@@ -88,7 +88,7 @@
 	vpnc /jffs/vpnc/sample.conf;
 
 告诉路由器在外网链接建立后运行vpnc。
-虽然并不必要，但是**现在重启路由器吧**！享受大功告成的感觉！
+虽然并不必要，但是现在 **重启路由器吧！** 享受大功告成的感觉！
 
 ##附1：dnsmasq的设置
 不太建议使用update.py生成的gfwdomains直接设置dnsmasq，这个文件包含了所有gfwList里面的域名，其中大多数域名并没有被污染，全部启用的话会降低DNS解析的效率。所以我缺省使用运营商配置的DNS解析（观察一段如果有问题就改用114DNS），apple相关域名通过中华电信DNS解析，只有Twiiter、Facebook等明确发现有DNS污染的网站才使用8.8.8.8解析。目前这样还没有发现什么问题，观察一段时间再决定是不是要应用[AntiDNSPoisoning](http://code.google.com/p/openwrt-gfw/wiki/AntiDNSPoisoning)。
