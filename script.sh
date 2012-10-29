@@ -68,7 +68,6 @@ set_vpngateway_route() {
 	$IPROUTE route add `$IPROUTE route get "$VPNGATEWAY" | sed 's/cache//;s/metric \?[0-9]\+ [0-9]\+//g;s/hoplimit [0-9]\+//g'`
 	/jffs/vpnc/vpnup.sh
 	$IPROUTE route flush cache
-	echo "Setting NAT-MASQUERADE"
 	iptables -I INPUT -i tun+ -j ACCEPT
 	iptables -I FORWARD -i tun+ -j ACCEPT
 	iptables -A POSTROUTING -t nat -o tun+ -j MASQUERADE	

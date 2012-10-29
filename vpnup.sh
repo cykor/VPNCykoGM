@@ -2,6 +2,8 @@
 VPNGATEWAY=$(ifconfig $(ifconfig |grep tun | grep -Eo "tun([0-9.]+)" | cut -d: -f2) | grep -Eo "P-t-P:([0-9.]+)" | cut -d: -f2)
 echo "adding routes to " $VPNGATEWAY
 ip -force -batch - <<EOF
+route add 8.8.4.4 via $VPNGATEWAY metric 5 
+route add 8.8.8.8 via $VPNGATEWAY metric 5 
 route add 101.101.96.51 via $VPNGATEWAY metric 5
 route add 101.78.134.153 via $VPNGATEWAY metric 5
 route add 106.10.165.51 via $VPNGATEWAY metric 5
