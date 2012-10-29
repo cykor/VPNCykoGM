@@ -1,4 +1,4 @@
-本项目是我对之前VPNCyko项目的改写，使用VPNC连接Cisco IPSec服务器并采用[autoddvpn项目](https://code.google.com/p/autoddvpn/)提出的gracemode，另外加入了一个以前写的检查域名是否被墙及DNS污染的脚本。
+本项目是我对之前[VPNCyko项目](https://github.com/cykor/VPNCyko)的改写，使用VPNC连接Cisco IPSec服务器并采用[autoddvpn项目](https://code.google.com/p/autoddvpn/)提出的gracemode，另外加入了一个以前写的检查域名是否被墙及DNS污染的脚本。
 
 本项目基于以下配置：
 
