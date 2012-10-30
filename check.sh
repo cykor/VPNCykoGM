@@ -1,4 +1,4 @@
-#nslookup domain and add its ip to ...
+#add domain to known_gfw_domains and check DNS
 
 sed -i "1i#$1\
 ' known_gfw_domains
