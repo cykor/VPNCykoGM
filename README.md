@@ -118,7 +118,7 @@
 
 这个脚本的作用是：
 1. 通过比较缺省DNS和DNSCrypt返回的结果，检查一个无法访问的域名是否被污染。如果被污染了，则生成dnsmasq配置的建议，把这一行直接粘贴到[路由器DHCP/DNS管理界面](http://192.168.1.1/advanced-dhcpdns.asp)里面Dnsmasq Custom configuration中即可。之所以不自动添加，是因为有的时候不同DNS解析的结果不同，但都是正确的IP，这时需要肉眼判断一下再决定。
-2.根据DNSCrypt解析的结果，将这个域名的路由直接加入路由表，这样不需要重启路由器就可以访问了。 
+2. 根据DNSCrypt解析的结果，将这个域名的路由直接加入路由表，这样不需要重启路由器就可以访问了。 
 3. 将访问这个域名的路由追加到vpnup.sh最后，这样下次路由器重启时也会自动添加这条路由。
 4. 将域名加入[known_gfw_domains](https://github.com/cykor/VPNCykoGM/blob/master/known_gfw_domains)，下次运行[update.py](https://github.com/cykor/VPNCykoGM/blob/master/update.py)时会读取这个文件并补充路由规则。
 
