@@ -4,7 +4,7 @@
 
 * 路由器：[华硕RT-N66U](http://www.asus.com/Networks/Wireless_Routers/RTN66U/)，我认为是目前可以刷Tomato的最好的路由器
 * 固件：[Tomato by Shibby](http://tomato.groov.pl/)，目前使用的是[K26USB-1.28.RT-N5x-MIPSR2-102-AIO-64K.trx](http://tomato.groov.pl/download/K26RT-N/build5x-102-EN/Asus%20RT-N66u%2064k/)
-* VPN：[@cosbeta](https://twitter.com/cosbeta)的[VPN服务](http://killwall.com)，60GB/月3台并发，服务器多、速度快，三年只要240元
+* VPN：[@cosbeta](https://twitter.com/cosbeta)的VPN服务，服务器多、速度快，价格便宜量又足
 * 宽带：我家用的是长城宽带…… 
 
 ##参考文档
