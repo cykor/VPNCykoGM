@@ -1,9 +1,32 @@
-server=/twitter.com/8.8.8.8
-server=/api.twitter.com/8.8.8.8
-server=/google.com/8.8.8.8
-server=/facebook.com/8.8.8.8
-server=/fbcdn.net/8.8.8.8
-server=/youtube.com/8.8.8.8
-server=/dropbox.com/8.8.8.8
-server=/googleusercontent.com/8.8.8.8
+#increasing dns cache
+cache-size=2048
+log-async=5
+
+#for using global DNSCrypt
+#no-resolv
+#no-poll
+#server=127.0.0.1#65053
+#server=/pool.ntp.org/208.67.222.222
+
+#Apple
 server=/apple.com/168.95.1.1
+
+#GFW
+server=/twitter.com/127.0.0.1#65053
+server=/api.twitter.com/127.0.0.1#65053
+server=/google.com/127.0.0.1#65053
+server=/facebook.com/127.0.0.1#65053
+server=/fbcdn.net/127.0.0.1#65053
+server=/youtube.com/127.0.0.1#65053
+server=/dropbox.com/127.0.0.1#65053
+server=/googleusercontent.com/127.0.0.1#65053
+server=/appspot.com/127.0.0.1#65053
+server=/ytimg.com/127.0.0.1#65053
+server=/imageshack.us/127.0.0.1#65053
+
+#Xbox Live
+server=/download.xbox.live.com/127.0.0.1#65053
+server=/msxb.vo.llnwd.net/127.0.0.1#65053
+server=/msxb.vo.llnw.net/127.0.0.1#65053
+server=/msxb-d1.vo.llnwd.net/127.0.0.1#65053
+server=/msxb-d1.vo.llnw.net/127.0.0.1#65053
