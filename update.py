@@ -127,18 +127,18 @@ msubnet.sort()
 
 print "[INFO] generating vpnup.sh ..."
 upfile = open('vpnup.sh','wa')
-# write head of vpnup.sh
-upfile.write('#!/bin/sh\nVPNGATEWAY=$(ifconfig $(ifconfig |grep tun | grep -Eo "tun([0-9.]+)" | cut -d: -f2) | grep -Eo "P-t-P:([0-9.]+)" | cut -d: -f2)\necho "adding routes to " $VPNGATEWAY\nip -force -batch - <<EOF\n')
+# write head of vpnup.sh, get $VPNGATEWAY, add routes to bitly, Google, Google DNS and OpenDNS
+upfile.write('#!/bin/sh\nVPNGATEWAY=$(ifconfig $(ifconfig |grep tun | grep -Eo "tun([0-9.]+)" | cut -d: -f2) | grep -Eo "P-t-P:([0-9.]+)" | cut -d: -f2)\necho "adding routes to " $VPNGATEWAY\nip -force -batch - <<EOF\nroute append 8.8.8.8 via $VPNGATEWAY metric 5\nroute append 8.8.4.4 via $VPNGATEWAY metric 5\nroute append 208.67.222.222 via $VPNGATEWAY metric 5\nroute append 208.67.220.220 via $VPNGATEWAY metric 5\nroute append 74.125.129.0/24 via $VPNGATEWAY metric 5\nroute append 69.58.188.0/24 via $VPNGATEWAY metric 5\n')
 print "[INFO] generating routes ..."
 # write ip -batch routes
 cnt=0
 for i in ipaddrlist:
-	buff = "route add %s via $VPNGATEWAY metric 5" % i
+	buff = "route append %s via $VPNGATEWAY metric 5" % i
 	print buff
 	upfile.write(buff+'\n')
 	cnt+=1
 for m in msubnet:
-	buff = "route add %s/24 via $VPNGATEWAY metric 5" % m
+	buff = "route append %s/24 via $VPNGATEWAY metric 5" % m
 	print buff
 	upfile.write(buff+'\n')
 	cnt+=1
