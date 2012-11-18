@@ -18,7 +18,7 @@
 * 通过修改vpnc连接配置文件，防止vpnc断线（暂时没有启用vpncwatch，昨天到今天早上12个小时没有断线）
 * 抄袭[\[BLT\]FQX的Blog](http://www.zhongguotese.net)中的双路由表设置，家里的下载专用机（192.168.1.33）除了Google、IMDB等路线外不走VPN（避免耗费VPN流量和带来封账号风险）
 * 使用[jimmyxu的chnroutes项目](https://github.com/jimmyxu/chnroutes)中提到的iproute2方案，几秒搞定gracemode的1000多条路由
-* 使用OpenDNS的DNSCrypt对抗DNS污染，仅将几个明显被DNS污染的域名用DNSCrypt解析
+* 使用[OpenDNS的DNSCrypt](http://www.opendns.com/technology/dnscrypt/)对抗DNS污染，仅将几个明显被DNS污染的域名用DNSCrypt解析
 
 ##通过ssh访问路由器
 在Terminal中：
@@ -110,19 +110,28 @@
 告诉路由器在外网链接建立后运行vpnc，并重启DNSCrypt进程。
 虽然并不必要，但是现在 **重启路由器吧！** 享受大功告成的感觉！
 
-##附1：使用check.sh配置自己需要走VPN的域名
+##附1：关于双路由表的配置
+本项目中双路由表是在script.sh中调用rtables.sh实现的，为路由器中设置了固定IP的192.168.1.33设置一张novpn的路由表。如果不需要这样的功能，在[script.sh](https://github.com/cykor/VPNCykoGM/blob/master/script.sh)中将下面这一行注释或删掉就可以了：
+
+	-70-	/jffs/vpnc/rtables.sh
+
+##附2：使用check.sh配置自己需要走VPN的域名
 本项目中提供一个[check.sh](https://github.com/cykor/VPNCykoGM/blob/master/check.sh)脚本，使用起来很简单：
 
 	cd /jffs/vpnc
 	./check.sh xxx.com
 
 这个脚本的作用是：
+
 1. 通过比较缺省DNS和DNSCrypt返回的结果，检查一个无法访问的域名是否被污染。如果被污染了，则生成dnsmasq配置的建议，把这一行直接粘贴到[路由器DHCP/DNS管理界面](http://192.168.1.1/advanced-dhcpdns.asp)里面Dnsmasq Custom configuration中即可。之所以不自动添加，是因为有的时候不同DNS解析的结果不同，但都是正确的IP，这时需要肉眼判断一下再决定。
-2. 根据DNSCrypt解析的结果，将这个域名的路由直接加入路由表，这样不需要重启路由器就可以访问了。 
+
+2. 根据DNSCrypt解析的结果，将访问这个域名的路由直接加入路由表，这样不需要重启路由器就可以访问了。 
+
 3. 将访问这个域名的路由追加到vpnup.sh最后，这样下次路由器重启时也会自动添加这条路由。
+
 4. 将域名加入[known_gfw_domains](https://github.com/cykor/VPNCykoGM/blob/master/known_gfw_domains)，下次运行[update.py](https://github.com/cykor/VPNCykoGM/blob/master/update.py)时会读取这个文件并补充路由规则。
 
-##附2：vpnc-disconnect的问题
+##附3：vpnc-disconnect的问题
 使用opkg安装vpnc后，在我的Tomato Shibby中是无法正常使用vpnc-disconnect的。不过只要将vpnc-disconnect脚本中的
 
 	pid=/var/run/vpnc/pid
